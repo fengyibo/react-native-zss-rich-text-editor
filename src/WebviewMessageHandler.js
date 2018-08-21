@@ -2,8 +2,8 @@ import {actions, messages} from './const';
 
 export const InjectedMessageHandler = (message) => {
 
-      const action = JSON.parse(message);
-
+      //const action = JSON.parse(message);
+      const action = message
       switch(action.type) {
         case actions.enableOnChange:
           return `zss_editor.enableOnChange()`;
@@ -12,13 +12,13 @@ export const InjectedMessageHandler = (message) => {
         case actions.toggleTitle:
           return `zss_editor.toggleTitle(JSON.parse('${JSON.stringify(action.data)}'))`;
         case actions.hideTitle:
-          return `zss_editor.hideTitle(JSON.parse('${JSON.stringify(action.data)}'))`;
+          return `zss_editor.hideTitle('${JSON.stringify(action.data)}')`;
           
         case actions.showTitle:
           return `zss_editor.showTitle(JSON.parse('${JSON.stringify(action.data)}'))`;
           
         case actions.setContentHtml:
-          return `zss_editor.setContentHTML(JSON.parse('${JSON.stringify(action.data)}'))`;
+          return `zss_editor.setContentHTML(${JSON.stringify(action.data)})`;
           
         case actions.blurTitleEditor:
           return `zss_editor.blurTitleEditor()`;

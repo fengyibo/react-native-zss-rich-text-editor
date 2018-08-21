@@ -917,7 +917,7 @@
 				whenPastingInsertAsPlainText('zss_editor_title');
 				whenPastingInsertAsPlainText('zss_editor_content');
 
-				zss_editor.focusTitle();
+				zss_editor.focusContent();
 
 				setTimeout(function() {
 					window.postMessage(JSON.stringify({type: 'ZSS_INITIALIZED'}));
@@ -1745,8 +1745,8 @@
 
 	<body>
 		<!-- ZSSRichTextEditor Editable Content -->
-		<div id="zss_editor_title" class="zss_editor_title" contenteditable="true" placeholder="" disableLineBreaks="true"></div>
-		<div id="separatorContainer"><hr></div>
+		<div id="zss_editor_title" class="zss_editor_title" style="display: none;" contenteditable="true" placeholder="" disableLineBreaks="true"></div>
+		<div id="separatorContainer" style="display: none;"><hr></div>
 		<div id="zss_editor_content" class="zss_editor_content" contenteditable="true" placeholder=""></div>
 		<div id="zss_editor_footer"></div>
 	</body>

@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {InjectedMessageHandler} from './WebviewMessageHandler';
 import {actions, messages} from './const';
 import { Modal, 
@@ -102,7 +103,7 @@ export default class RichTextEditor extends Component {
     const {marginTop = 0, marginBottom = 0} = this.props.style;
     const spacing = marginTop + marginBottom + top + bottom;
 
-    const editorAvailableHeight = Dimensions.get('window').height - keyboardHeight - spacing;
+    const editorAvailableHeight = Dimensions.get('window').height - (keyboardHeight + 80) - spacing;
     this.setEditorHeight(editorAvailableHeight);
   }
   
@@ -303,7 +304,7 @@ export default class RichTextEditor extends Component {
 
   render() {
     //in release build, external html files in Android can't be required, so they must be placed in the assets folder and accessed via uri
-    const pageSource = require('./editor.html');
+    const pageSource = Platform.OS === 'ios' ? require('./editor.html') : {uri: "file:///android_asset/editor.html"}
     return (
       <View style={{flex: 1}} ref={(view)=>this.wrapper = view}>
         <WebView
@@ -337,7 +338,8 @@ export default class RichTextEditor extends Component {
   };
 
   _sendAction(action, data) {
-    let jsonString = JSON.stringify({type: action, data});
+    //let jsonString = JSON.stringify({type: action, data});
+    let jsonString = {type: action, data};
     this.webviewBridge.injectJavaScript(InjectedMessageHandler(jsonString));
   }
 
